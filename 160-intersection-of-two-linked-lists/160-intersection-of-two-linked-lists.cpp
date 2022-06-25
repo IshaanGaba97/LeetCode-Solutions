@@ -9,30 +9,17 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode* tempA = headA;
-        ListNode* tempB = headB;
-        int sizeA = 1;
-        int sizeB = 1;
-        while(tempA != nullptr){
-            tempA = tempA->next;
-            sizeA++;
+        if(headA == NULL || headB == NULL){
+            return NULL;
         }
-        while(tempB != nullptr){
-            tempB = tempB->next;
-            sizeB++;
+        ListNode* a = headA;
+        ListNode* b = headB;
+        
+        //if one pointer reach null make it the head of other linked list
+        while(a != b){
+            a = a == NULL? headB : a->next;
+            b = b == NULL? headA : b->next;
         }
-        int ressize = abs(sizeA - sizeB);
-        if(sizeA > sizeB){
-            for(int i = 0; i < ressize; i++)
-                headA = headA->next;
-        } else {
-            for(int i = 0; i < ressize; i++)
-                headB = headB->next;
-        }
-        while(headA != headB){
-            headA = headA->next;
-            headB = headB->next;
-        }
-        return headA;
+        return a;
     }
 };

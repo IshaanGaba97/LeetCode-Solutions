@@ -1,44 +1,32 @@
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& v) {
-        int n = v.size();
-        sort(v.begin(), v.end());
-        set<vector<int>> ans;
+    vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> res;
         
-        if(n < 3){
-            return res;
-        }
+        if(nums.size() < 3) return res;
+        sort(nums.begin(), nums.end());
         
-        int cntZero = 0;
-        
-        for(auto &it : v){
-            if(it == 0) cntZero++;
-        }
-        
-        if(n == cntZero){
-            res.push_back(vector<int>{0,0,0});
-            return res;
-        }
-        
-        for(int i=0;i<n-2;i++){
-            int l = i+1, r = n-1;
-            while(l < r){
-                int sum = v[i]+v[l]+v[r];
-                if(sum == 0){
-                    ans.insert({v[i],v[l],v[r]});
+        //moves for a
+        for(int i = 0; i < nums.size() - 2; i++){
+            if(i == 0 || (i > 0 && (nums[i] != nums[i-1]))){
+                int lo = i+1, hi = nums.size()-1, sum = 0 - nums[i];
+                while(lo < hi){   
+                    if(nums[lo] + nums[hi] == sum){
+                        vector<int> temp;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[lo]);
+                        temp.push_back(nums[hi]);
+                        res.push_back(temp); 
+                        
+                        while(lo < hi  && nums[lo] == nums[lo+1]) lo++;
+                        while(lo < hi && nums[hi] == nums[hi-1]) hi--;
+                        lo++; hi--;
+                    }
+                    else if(nums[lo] + nums[hi] < sum) lo++;
+                    else hi--;
                 }
-                if(sum < 0){
-                    l++;
-                }
-                else{
-                    r--;
-                }
-                
             }
         }
-        
-        vector<vector<int>>result(ans.begin(), ans.end());
-        return result;
+        return res;
     }
 };

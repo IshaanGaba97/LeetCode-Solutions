@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        //tc = O(m+n)
         int m = matrix.size();
         int n = 0;
         if(m != 0){

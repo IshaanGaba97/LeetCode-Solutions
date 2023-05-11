@@ -11,7 +11,11 @@ public:
         return dp[i][j] = max(solve(i, j+1, nums1, nums2, dp), solve(i+1, j, nums1, nums2, dp));
     }
     int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
-        vector<vector<int>> dp(nums1.size(), vector<int>(nums2.size(), -1));
+        int n = nums1.size();
+        int m = nums2.size();
+        vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
+        
+        // for(int i = 0; i < )
         return solve(0, 0, nums1, nums2, dp);
     }
 };

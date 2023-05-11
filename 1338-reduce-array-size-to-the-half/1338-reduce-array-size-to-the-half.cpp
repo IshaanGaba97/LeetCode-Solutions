@@ -14,12 +14,13 @@ public:
         for(auto it : mp){
             pq.push({it.second, it.first});
         }
-        while(tempsize > n/2 && !pq.empty()){
+        while(!pq.empty()){
             int freq = pq.top().first;
             int ele = pq.top().second;
             pq.pop();
             tempsize -= freq;
             sz++;
+            if(tempsize <= n/2 ) return sz;
         }
         return sz;
     }

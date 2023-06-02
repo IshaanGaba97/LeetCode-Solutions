@@ -1,13 +1,20 @@
 class Solution {
     #define ll long long
 public:
-    void dfs(int node, unordered_set<int>& vis, unordered_map<int, vector<int>> &adj){
+    void bfs(int node, unordered_set<int>& vis, unordered_map<int, vector<int>> &adj){
+        queue<int> q;
+        q.push(node);
         vis.insert(node);
-        for(auto it : adj[node]){
-            if(vis.find(it) == vis.end()){
-                dfs(it, vis, adj);
+        while(!q.empty()){
+            int root = q.front(); q.pop();
+            for(auto it : adj[root]){
+                if(vis.find(it) == vis.end()){
+                    q.push(it);
+                    vis.insert(it);
+                }   
             }
         }
+
     }
     int maximumDetonation(vector<vector<int>>& bombs) {
         //adj list for graph
@@ -35,7 +42,7 @@ public:
         unordered_set<int> vis;
         for(int i = 0; i < n; i++){
             if(vis.find(i) == vis.end()){
-                dfs(i, vis, adj);
+                bfs(i, vis, adj);
                 int count = vis.size();
                 maxi = max(maxi, count); 
                 vis.clear();

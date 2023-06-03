@@ -1,7 +1,7 @@
 class Solution {
 public:
     // total time is parent + max(child nodes);
-    int dfs(int rootnode, unordered_map<int, vector<int>> &adj, vector<int> &itime){
+    int dfs(int rootnode, vector<int> adj[], vector<int> &itime){
         int rootTime = itime[rootnode];
         int mx = 0;
         
@@ -12,7 +12,7 @@ public:
         return rootTime + mx;
     }
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        unordered_map<int, vector<int>> adj;
+        vector<int> adj[n+1];
         
         //creating a n-ary tree
         for(int i = 0; i < manager.size(); i++){
